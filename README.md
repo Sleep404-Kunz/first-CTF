@@ -20,10 +20,37 @@ My first ever CTF challenge (ISC2). This was a level-easy CTV developed by membe
 
 
 ## 🚀 Process
-### Step 1: [Step Title]
-- Describe what you did in the first step.
-- Include any relevant commands or scripts.
-
-**Example Commands:**
+### Step 1: Installing Docker and Docker Compose
 ```bash
-nmap -A -T4 -p- 192.168.1.10
+apt install docker docker-compose
+```
+CTF file
+```bash
+version: '3.8'
+
+services:
+  privisc2alation:
+    image:  eyeoncysec/privisc2alation:latest
+    container_name: privisc2alation
+    restart: unless-stopped
+    networks:
+      ctf-network:
+        ipv4_address: 192.168.94.121
+    stdin_open: true
+    tty: true
+networks:
+  ctf-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.94.0/24apt install docker docker-compose
+```
+### Step 2: NMAP scanning
+- I used the NMAP tool to identify the OS, services and their versions running on the host.
+- This allowed me to look for any vulnerabilities that the host services version might have that can be exploited to gain access to the host. 
+  
+```bash
+nmap -sV -O 192.168.94.121
+```
+Output
+
