@@ -62,17 +62,24 @@ The target machine is running two services:
 - ssh (OpenSSH 8.4p1) on port 22 and
 - http (Apache httpd 2.4.54) on port 80
 
-I can then use the Gobuster scanning tool to find any hidden URLS for the target ip. This process involved running the command numerous times with multiple wordlists. Following a google search of popular wordlists I used the SecLists. A link is provided here: [Seclist link](https://github.com/danielmiessler/SecLists/tree/master)
+### Step 3: Gobuster dir mode enumberation
+
+I can then use the Gobuster scanning tool to find hidden URLS for the target ip. This process involved running the command numerous times with multiple wordlists. The wordlists available in kali by default were not successful in obtaining any successful results so, following a google search of popular wordlists I used the SecLists. A link is provided here: [Seclist link](https://github.com/danielmiessler/SecLists/tree/master)
 
 The gobuster was successful wiht the CommonPHP-Filenames.txt wordlist and gave me the URL with /dashboard.php  that contained a credential for a ctfuser that will be used later on to gain initial access and foothold in the target. 
 
+```bash
+gobuster dir -u 192.168.94.121 -w /usr/share/wordlists/SecLists/Discovery/Web-Content/Common-PHP-Filenames.txt -b 404
+```
 <img src= "https://github.com/Sleep404-Kunz/first-CTF/blob/main/gobuster%20output.png" alt = "Output" width = "500" />
 
 The new URL gives the webpage directing to the hint
 
-<img src= "https://github.com/Sleep404-Kunz/first-CTF/blob/main/dashboard.png" alt = "Output" width = "500" />
-<img src= "https://github.com/Sleep404-Kunz/first-CTF/blob/main/hint.png" alt = "Output" width = "500" />
+<img src= "https://github.com/Sleep404-Kunz/first-CTF/blob/main/dashboard.png" alt = "Output" width = "400" />
+<img src= "https://github.com/Sleep404-Kunz/first-CTF/blob/main/hint.png" alt = "Output" width = "550" />
 
-There were other wordlists that provided results wiht hidden URLs, however those websites were not accessbile because of permission requirements. 
+There were other wordlists that provided results with hidden URLs, however those websites were not accessbile because of permission restrictions. 
+
+### Step 4: 
 
 
