@@ -1,30 +1,39 @@
 # First-CTF 📝
 
-My first ever CTF challenge (ISC2). This was a level-easy CTV developed by members of the ISC2 Toronto Chapter. It was a really good hands on exercise to test my pentesting skills. This was also where I learned pentesting and hacking is more about researching the tools and how to use them and not just typing out commands in a terminal. The objective of the CTF was 2 layered, the first to get a foothold in the target and the second to gain access to files through prvilege escalation. 
+My first-ever Capture the Flag (CTF) challenge (ISC2). This was an easy-level CTF developed by members of the ISC2 Toronto Chapter. It provided a valuable hands-on exercise to test and develop my penetration testing (pentesting) skills. Through this challenge, I learned that effective pentesting and ethical hacking require significant research into tools and methodologies rather than just executing terminal commands.
+
+The CTF had a two-layered objective:
+1. Gain an initial foothold in the target machine and retrieve the first flag.
+2. Perform privilege escalation to obtain root access and retrieve the second flag.
+
+## Challenge Details
 
 - **CTF Name**: privisc2alation
 - **Challenge Category**: Category like Web Exploitation
 - **Challenge Difficulty**: Easy
-- **Objective**: Identify vulnerable ports and gain initial foothold and collect flag 1. After gaining access execute privilege escalation to superuser to collect flag 2.
+- **Objective**:
+  1. Identify vulnerable ports and gain initial foothold and collect flag 1.
+  2. After gaining access execute privilege escalation to superuser to collect flag 2.
 
 
 ## 🔧 Tools used 
 
 | Tool       | Purpose            |
 |------------|--------------------|
-| Kali VM    | Used as the attacking machine and also contains the docker instances for the CTF.                 |
-| Docker     | Used to deploy the CTF challenge.                                                                 |
-| NMAP       | Network scanning tool to identify the open ports in the target hosts.                  |
-| Gobuster   | Enumerate hidden directories, URLs, and files  in the target domain.                   |
-| nano       | Used as a means for privilege escalation.                   |
+| Kali VM    | Primary attacking machine; also hosted Docker instances for the CTF.               |
+| Docker     | Used to deploy and manage the CTF challenge environment.                           |
+| NMAP       | Performed network scanning to identify open ports and running services.            |
+| Gobuster   | Enumerated hidden directories, URLs, and files on the target domain.               |
+| vim        | Exploited to execute privilege escalation during the challenge.                    |
 
 
 ## 🚀 Process
 ### Step 1: Installing Docker and Docker Compose
+The Docker configuration was essential to deploy the challenge environment. The installation commands are as follows:
 ```bash
 apt install docker docker-compose
 ```
-CTF file
+The docker-compose.yml file for the CTF deployment:
 ```bash
 version: '3.8'
 
@@ -64,9 +73,9 @@ The target machine is running two services:
 
 ### Step 3: Gobuster dir mode enumberation
 
-I can then use the Gobuster scanning tool to find hidden URLS for the target ip. This process involved running the command numerous times with multiple wordlists. The wordlists available in kali by default were not successful in obtaining any successful results so, following a google search of popular wordlists I used the SecLists. A link is provided here: [Seclist link](https://github.com/danielmiessler/SecLists/tree/master)
+I could then use the Gobuster scanning tool to find hidden URLS for the target ip. This process involved running the command numerous times with multiple wordlists. The wordlists available in kali by default were not successful in obtaining any successful results so, following a google search of popular wordlists I used the SecLists. A link is provided here: [Seclist link](https://github.com/danielmiessler/SecLists/tree/master)
 
-The gobuster was successful wiht the CommonPHP-Filenames.txt wordlist and gave me the URL with /dashboard.php  that contained a credential for a ctfuser that will be used later on to gain initial access and foothold in the target. 
+The gobuster was successful with the CommonPHP-Filenames.txt wordlist and gave me the URL with /dashboard.php  that contained a credential for a ctfuser that will be used later on to gain initial access and foothold in the target. 
 
 ```bash
 gobuster dir -u 192.168.94.121 -w /usr/share/wordlists/SecLists/Discovery/Web-Content/Common-PHP-Filenames.txt -b 404
@@ -104,7 +113,7 @@ To open the root shell, I create a new file with vim and I now open the vim comm
 ```bash
 ctfuser@e13d17876392:/$ sudo vim test
 ```
-Within the vi session, which is already running with root privileges, I could now open a shell with the following command
+Within the vi session, which is already running with root privileges, I could now invoke a root shell with the following command
 
 ```bash
 :!/bin/bash
@@ -114,4 +123,33 @@ Within the vi session, which is already running with root privileges, I could no
 
 <img src= "https://github.com/Sleep404-Kunz/first-CTF/blob/main/root flag.png" alt = "Output" width = "550" />
 
+# 🛠️ Skills Developed
+Network Scanning:
+- Leveraged tools like NMAP to identify open ports and services.
+- Understood service versioning and potential vulnerabilities.
+
+Enumeration:
+- Used Gobuster with custom wordlists to discover hidden directories and sensitive information.
+
+Privilege Escalation:
+- Explored basic privilege escalation techniques, such as exploiting misconfigured sudo permissions.
+
+CTF Workflow:
+- Gained experience in a structured CTF workflow, from reconnaissance to exploitation.
+
+Tool Proficiency:
+- Enhanced proficiency with tools like Docker, NMAP, Gobuster, and Vim.
+
+# 🔚 Conclusion
+This beginner-friendly CTF was an excellent learning experience, combining fundamental ethical hacking techniques with hands-on problem-solving. It emphasized the importance of researching tools and methods for successful pentesting.
+
+Through this challenge, I developed a systematic approach to reconnaissance, enumeration, and exploitation, and I gained practical insights into privilege escalation. This experience has motivated me to continue honing my skills and taking on more advanced CTF challenges.
+
+Next Steps:
+
+Explore more advanced CTFs and challenges.
+Deepen knowledge in automated privilege escalation tools and scripts.
+Enhance understanding of web application vulnerabilities.
+
+## 💡 If you have any feedback or suggestions, feel free to reach out! 😊
 
