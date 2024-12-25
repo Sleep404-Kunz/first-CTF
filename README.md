@@ -80,6 +80,38 @@ The new URL gives the webpage directing to the hint
 
 There were other wordlists that provided results with hidden URLs, however those websites were not accessbile because of permission restrictions. 
 
-### Step 4: 
+### Step 4: SSH connection to target machine
+
+I then attempted a SSH connection to the target IP address with the credentials obtained in step 4. Running the ls command shows two text files, one of which is the first flag. 
+
+<img src= "https://github.com/Sleep404-Kunz/first-CTF/blob/main/SSH.png" alt = "Output" width = "550" />
+
+### Step 5: Privilege escalation for root access
+
+Since this CTF was meant to be for beginners like myself, I searched the internet for the most basic forms of privilege escaltion that did not involve running scripts or use of tools.
+
+I check the ctfuser's permissions with the following command.
+
+```bash
+sudo -l
+```
+This result shows that ctfuser has root access without password authentication but only with vim. So, I chose to use the vim text editor exploit.
+
+<img src= "https://github.com/Sleep404-Kunz/first-CTF/blob/main/ctfuser.png" alt = "Output" width = "550" />
+
+To open the root shell, I create a new file with vim and I now open the vim command and open a root shell within the text editor.
+
+```bash
+ctfuser@e13d17876392:/$ sudo vim test
+```
+Within the vi session, which is already running with root privileges, I could now open a shell with the following command
+
+```bash
+:!/bin/bash
+```
+
+**🏁Lo and behold** I now have a shell with root privileges with access to the root home directories and the final flag.
+
+<img src= "https://github.com/Sleep404-Kunz/first-CTF/blob/main/root flag.png" alt = "Output" width = "550" />
 
 
